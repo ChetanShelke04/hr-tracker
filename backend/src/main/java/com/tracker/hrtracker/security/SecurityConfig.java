@@ -48,7 +48,7 @@ public class SecurityConfig {
             .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable)) // For H2 console
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/api/v1", "/api/v1/health", "/api/v1/auth/**", "/h2-console/**").permitAll()
+                .requestMatchers("/", "/index.html", "/assets/**", "/favicon.ico", "/api/v1/health", "/api/v1/auth/**", "/h2-console/**").permitAll()
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
