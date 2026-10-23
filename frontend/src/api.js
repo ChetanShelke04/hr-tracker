@@ -1,4 +1,4 @@
-const API_BASE = '/api/v1';
+const API_BASE = import.meta.env.VITE_API_URL || (typeof window !== 'undefined' && window.location.hostname === 'localhost' ? '/api/v1' : 'https://hr-tracker-998u.onrender.com/api/v1');
 
 export const getAuthToken = () => localStorage.getItem('token');
 export const setAuthToken = (token) => {
