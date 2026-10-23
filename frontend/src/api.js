@@ -41,11 +41,15 @@ async function request(endpoint, options = {}) {
     headers,
   });
 
-  if (response.status === 401) {
+  if (response.status === 401 && endpoint !== '/auth/login') {
     setAuthToken(null);
     setCurrentUserStored(null);
     window.dispatchEvent(new Event('auth-changed'));
     throw new Error('Session expired. Please log in again.');
+  }
+
+  if (response.status === 403 || (response.status === 401 && endpoint === '/auth/login')) {
+    throw new Error('Invalid username or password. If you have not created an account yet on this database, please click "Sign Up" above.');
   }
 
   if (!response.ok) {
